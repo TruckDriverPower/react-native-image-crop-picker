@@ -33,6 +33,14 @@ declare module "react-native-image-crop-picker" {
         height: number;
         mime: string;
         exif: null | object;
+        cropRect: null | CropRect
+    }
+
+    export interface CropRect {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
     }
 
     export function openPicker(options: Options): Promise<Image | Image[]>;
@@ -41,11 +49,15 @@ declare module "react-native-image-crop-picker" {
     export function clean(): Promise<void>;
     export function cleanSingle(path: string): Promise<void>;
 
-    export default {
-        openPicker,
-        openCamera,
-        openCropper,
-        clean,
-        cleanSingle
+    export interface ImageCropPicker {
+        openPicker(options: Options): Promise<Image | Image[]>;
+        openCamera(options: Options): Promise<Image | Image[]>;
+        openCropper(options: Options): Promise<Image>;
+        clean(): Promise<void>;
+        cleanSingle(path: string): Promise<void>;
     }
+
+    const ImageCropPicker: ImageCropPicker;
+
+    export default ImageCropPicker;
 }
